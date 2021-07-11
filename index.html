@@ -13,38 +13,26 @@
 </head>
 
 <body class="container">
-    <h1>Office Management</h1>
+    <h1 class="text-center pt-3 pb-3">Office Management</h1>
     <main class="row">
-        <section class="left col">
+        <section class="left col-lg-6">
             <h3>Rooms</h3>
             <hr>
-            <form class="form">
-                <input type="text" id="add-form" placeholder="room name" required>
-                <input type="submit" id="add-btn" class="btn btn-dark" value="Add">
+            <form class="row">
+                <div class="col-md-6">
+                    <input type="text" id="add-form" placeholder="room name (required)">
+                </div>
+                <div class="col-md-6">
+                    <input type="submit" id="add-btn" class="btn btn-dark" value="Add">
+                </div>
             </form>
 
-            <section class="rooms-list">
-                <!-- <div class="card border-light mb-3" style="max-width: 18rem;">
-                    <div class="card-body">
-                        <i class="fas fa-circle available"></i>
-                        <h5 class="card-title">Room Pacific</h5>
-                        
-                        <a href="#" class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Enter</a>
-                        <a href="#" class="btn btn-light">Leave</a>
-                        <div class="collapse mt-2" id="collapseExample">
-                            <div class="card">
-                                <input type="text" class="enter-form" placeholder="meeting name">
-                                <input type="text" class="enter-form mt-1 mb-1" placeholder="team name">
-                                <a href="#" class="btn btn-dark">Enter now</a>
-                            </div>
-                          </div>
-                    </div>
-                </div> -->
+            <section class="rooms-list pt-5">
             </section>
 
         </section>
 
-        <section class="right col">
+        <section class="right col-lg-6">
             <h3>Office Notice Board</h3>
             <hr>
             <div class="notices">

@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <a href="#" class="btn btn-primary enter" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_${i}" aria-expanded="false" aria-controls="collapse_${i}" id="enter_${i}">Enter</a>
                     <a href="#" class="btn btn-light leave">Leave</a>
                     <div class="collapse mt-2" id="collapse_${i}" data-parent="#myGroup">
-                        <form class="card">
+                        <form class="card" id="enter_form_${i}">
                             <input type="text" class="enter-form" id="meeting_${i}" placeholder="meeting name" required>
                             <input type="text" class="enter-form mt-1 mb-1" id="team_${i}" placeholder="team name" required>
                             <button class="enter-now" class="btn btn-dark" id="enterNow_${i}">Enter now</button>
@@ -46,10 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
         roomNameInput.value = '';
 
         submitNotice(room, i)
-        // availabilityColor(room)
     }
 
-    // const availabilityColor = (room) => {
+    // const updateAvailability = (room) => {
     //     const availableStatusIcon = document.querySelector('#status')
     //     if (!room.isAvailable()) {
     //         return availableStatusIcon.classList.toggle('available', 'unavailable')
@@ -68,8 +67,8 @@ document.addEventListener("DOMContentLoaded", () => {
             let para = document.createElement('p')
     
             para.innerText = room.enter(meetingNameInput, teamNameInput)
-            console.log(meetingNameInput.value)
             div.append(para)
+            document.forms[`enter_form_${id_num}`].reset() // clears form fields; resets form
         })
     }
 });

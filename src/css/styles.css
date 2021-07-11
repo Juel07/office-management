@@ -42,10 +42,10 @@ p {
 span {
   font-size: 16px;
 }
-.container {
+/* .container {
   display: grid;
   place-items: center;
-}
+} */
 
 .container h3 {
   font-size: 20px;

@@ -24,11 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
         var roomCardContent = `
         <div class="card border-light mb-3" style="max-width: 18rem;">
             <div class="card-body col">
-                <i class="fas fa-circle available" id="status"></i>
+                <i class="fas fa-circle available" id="status_${i}"></i>
                 <h5 class="card-title">${room.getName()}</h5>
                 <div id="myGroup">
                     <a href="#" class="btn btn-primary enter" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_${i}" aria-expanded="false" aria-controls="collapse_${i}" id="enter_${i}">Enter</a>
-                    <a href="#" class="btn btn-light leave">Leave</a>
+                    <a href="#" class="btn btn-light leave" id="leave_${i}">Leave</a>
                     <div class="collapse mt-2" id="collapse_${i}" data-parent="#myGroup">
                         <form class="card" id="enter_form_${i}">
                             <input type="text" class="enter-form" id="meeting_${i}" placeholder="meeting name" required>
@@ -48,12 +48,17 @@ document.addEventListener("DOMContentLoaded", () => {
         submitNotice(room, i)
     }
 
-    // const updateAvailability = (room) => {
-    //     const availableStatusIcon = document.querySelector('#status')
-    //     if (!room.isAvailable()) {
-    //         return availableStatusIcon.classList.toggle('available', 'unavailable')
-    //     } 
-    // }
+    const updateAvailability = (room, id_num) => {
+        const availableStatusIcon = document.querySelector(`#status_${id_num}`)
+        // console.log(room.isAvailable())
+        // console.log(availableStatusIcon)
+
+        if (!room.isAvailable()) {
+            return availableStatusIcon.classList.add('unavailable')
+        } else {
+            return availableStatusIcon.classList.remove('unavailable')
+        }
+    }
 
     const submitNotice = (room, id_num) => {
         const enterRoomNowBtn = document.querySelector(`#enterNow_${id_num}`)
@@ -65,10 +70,26 @@ document.addEventListener("DOMContentLoaded", () => {
             const teamNameInput = document.getElementById(`team_${id_num}`).value;
             const div = document.querySelector('.notices')
             let para = document.createElement('p')
-    
+            para.setAttribute('id', `p_${id_num}`)
+
             para.innerText = room.enter(meetingNameInput, teamNameInput)
+            updateAvailability(room, id_num)
             div.append(para)
             document.forms[`enter_form_${id_num}`].reset() // clears form fields; resets form
+            leaveRoom(room, i)
         })
     }
+
+    const leaveRoom = (room, id_num) => {
+        const leaveRoomNowBtn = document.querySelector(`#leave_${id_num}`)
+        const notice = document.querySelector(`#p_${id_num}`)
+
+        leaveRoomNowBtn.addEventListener('click', () => {
+            room.leave()
+            notice.remove()
+            updateAvailability(room, id_num)
+            // console.log(notice)
+        })
+    }
+
 });

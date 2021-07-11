@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let roomCard = document.createElement('div')
         var roomCardContent = `
         <div class="card border-light mb-3" style="max-width: 18rem;">
-            <div class="card-body">
+            <div class="card-body col">
                 <i class="fas fa-circle available" id="status"></i>
                 <h5 class="card-title">${room.getName()}</h5>
                 <div id="myGroup">
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <form class="card" id="enter_form_${i}">
                             <input type="text" class="enter-form" id="meeting_${i}" placeholder="meeting name" required>
                             <input type="text" class="enter-form mt-1 mb-1" id="team_${i}" placeholder="team name" required>
-                            <button class="enter-now" class="btn btn-dark" id="enterNow_${i}">Enter now</button>
+                            <input type="submit" class="btn btn-dark enter-now" role="button" id="enterNow_${i}" value="Enter now">
                         </form>
                     </div>
                 </div>

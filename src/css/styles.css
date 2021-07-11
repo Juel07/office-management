@@ -64,7 +64,7 @@ span {
 }
 
 .card-body {
-  border: 2px solid var(--primary-color) !important;
+  /* border: 2px solid var(--primary-color) !important; */
   border-radius: var(--border-rd);
 }
 

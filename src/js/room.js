@@ -17,11 +17,11 @@ class Room {
     }
 
     enter(meeting, team) {
+        this.meeting = meeting;
+        this.team = team;
         if (!this.availability) {
             throw new Error("Room is occupied");
         }
-        this.meeting = meeting;
-        this.team = team;
         this.availability = false;
         return this.displayNotice();
     }

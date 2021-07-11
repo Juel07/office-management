@@ -1,8 +1,6 @@
 const roomNameInput = document.querySelector('#add-form');
 const roomNameSubmitBtn = document.querySelector('#add-btn');
 const roomsList = document.querySelector('.rooms-list')
-const availableStatusIcon = document.querySelector('#status')
-const enterRoomNowBtn = document.querySelector('#enter-now')
 
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -12,15 +10,13 @@ document.addEventListener("DOMContentLoaded", () => {
     const createRoom = () => {
         let room_name = roomNameInput.value;
         let room = new Room(room_name);
-        console.log(room);
         office.addRoom(room);
-        if(room_name)
-        {
+        if (room_name) {
             displayRoom(room);
         }
     }
 
-    roomNameSubmitBtn.addEventListener('click', createRoom );
+    roomNameSubmitBtn.addEventListener('click', createRoom);
 
     const displayRoom = (room) => {
         i = i + 1;
@@ -28,17 +24,17 @@ document.addEventListener("DOMContentLoaded", () => {
         var roomCardContent = `
         <div class="card border-light mb-3" style="max-width: 18rem;">
             <div class="card-body">
-                <i class="fas fa-circle" id="status"></i>
+                <i class="fas fa-circle available" id="status"></i>
                 <h5 class="card-title">${room.getName()}</h5>
                 <div id="myGroup">
-                    <a href="#" class="btn btn-primary enter" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_${i}" aria-expanded="false" aria-controls="collapse_${i}">Enter</a>
+                    <a href="#" class="btn btn-primary enter" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_${i}" aria-expanded="false" aria-controls="collapse_${i}" id="enter_${i}">Enter</a>
                     <a href="#" class="btn btn-light leave">Leave</a>
-                    <div class="collapse mt-2" id="collapse_${i}" data-parent="#myGroup>
-                        <div class="card">
-                            <input type="text" class="enter-form" placeholder="meeting name">
-                            <input type="text" class="enter-form mt-1 mb-1" placeholder="team name">
-                            <button class="enter-now" class="btn btn-dark">Enter now</button>
-                        </div>
+                    <div class="collapse mt-2" id="collapse_${i}" data-parent="#myGroup">
+                        <form class="card">
+                            <input type="text" class="enter-form" id="meeting_${i}" placeholder="meeting name" required>
+                            <input type="text" class="enter-form mt-1 mb-1" id="team_${i}" placeholder="team name" required>
+                            <button class="enter-now" class="btn btn-dark" id="enterNow_${i}">Enter now</button>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -46,8 +42,34 @@ document.addEventListener("DOMContentLoaded", () => {
         `
         roomCard.innerHTML = roomCardContent;
         roomsList.append(roomCard);
-        roomCard.getElementsByClassName('enter-now')[0].addEventListener('click', () => console.log(`enter room_${i}`))
 
-        roomNameInput.value = ''
+        roomNameInput.value = '';
+
+        submitNotice(room, i)
+        // availabilityColor(room)
+    }
+
+    // const availabilityColor = (room) => {
+    //     const availableStatusIcon = document.querySelector('#status')
+    //     if (!room.isAvailable()) {
+    //         return availableStatusIcon.classList.toggle('available', 'unavailable')
+    //     } 
+    // }
+
+    const submitNotice = (room, id_num) => {
+        const enterRoomNowBtn = document.querySelector(`#enterNow_${id_num}`)
+
+        enterRoomNowBtn.addEventListener('click', (e) => {
+            e.preventDefault()
+
+            const meetingNameInput = document.getElementById(`meeting_${id_num}`).value;
+            const teamNameInput = document.getElementById(`team_${id_num}`).value;
+            const div = document.querySelector('.notices')
+            let para = document.createElement('p')
+    
+            para.innerText = room.enter(meetingNameInput, teamNameInput)
+            console.log(meetingNameInput.value)
+            div.append(para)
+        })
     }
 });
